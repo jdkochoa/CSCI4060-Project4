@@ -20,5 +20,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        if (savedInstanceState == null) {
+            SplashFragment splashFragment = new SplashFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView, splashFragment)
+                    .commit();
+        }
+
     }
 }
