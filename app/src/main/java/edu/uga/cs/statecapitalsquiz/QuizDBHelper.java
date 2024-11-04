@@ -50,7 +50,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized QuizDBHelper getDbInstance(Context context) {
+    public static synchronized QuizDBHelper getDBInstance(Context context) {
         if (dbInstance == null) {
             dbInstance = new QuizDBHelper(context.getApplicationContext());
         }
