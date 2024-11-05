@@ -61,6 +61,7 @@ public class QuizResults extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         textView = view.findViewById(R.id.tv);
-        textView.setText( "You scored " + quizScore);
+        textView.setText( "You scored " + QuizPagerAdapter.quizScore + " out of 6 questions correct.");
+
     }
 }

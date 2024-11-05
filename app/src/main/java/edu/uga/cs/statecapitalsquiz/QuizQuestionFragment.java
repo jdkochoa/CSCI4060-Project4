@@ -25,6 +25,8 @@ public class QuizQuestionFragment extends Fragment {
     private RadioButton choiceTwo;
     private RadioButton choiceThree;
 
+    int currentScore;
+
     DBManager databaseManager;
     // This values contains the current quiz question number
     private int questionNumber;
@@ -129,7 +131,15 @@ public class QuizQuestionFragment extends Fragment {
                 String selectedAnswer = checkedRadioButton.getText().toString();
 
                 if (selectedAnswer.equals(currentQuestion.getStateCapital())) {
-                    QuizPagerAdapter.quizScore++;
+                    if (!currentQuestion.isAnsweredCorrectly) {
+                        QuizPagerAdapter.quizScore++;
+                        currentQuestion.isAnsweredCorrectly = true; // Mark the question as correctly answered
+                    }
+                } else {
+                    if (currentQuestion.isAnsweredCorrectly) {
+                        QuizPagerAdapter.quizScore--;
+                        currentQuestion.isAnsweredCorrectly = false; // Mark the question as incorrectly answered
+                    }
                 }
             }
         });
