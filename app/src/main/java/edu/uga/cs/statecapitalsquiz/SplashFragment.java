@@ -76,6 +76,7 @@ public class SplashFragment extends Fragment {
         public void onClick(View view) {
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, new QuizFragment() )
+                    .addToBackStack(null)
                     .commit();
         }
     }
@@ -89,6 +90,7 @@ public class SplashFragment extends Fragment {
         public void onClick(View view) {
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, new ReviewFragment() )
+                    .addToBackStack(null)
                     .commit();
         }
     }
@@ -102,6 +104,7 @@ public class SplashFragment extends Fragment {
         public void onClick(View view) {
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, new HelpFragment() )
+                    .addToBackStack(null)
                     .commit();
         }
     }

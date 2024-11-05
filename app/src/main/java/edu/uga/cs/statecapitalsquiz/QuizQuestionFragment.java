@@ -30,7 +30,7 @@ public class QuizQuestionFragment extends Fragment {
     private int questionNumber;
     // This list will contain all 6 quiz questions
     private ArrayList<QuizQuestion> quizQuestions;
-    private static final int numberOfQuestions = 6;
+    private static final int numberOfQuestions = 7;
 
     public static QuizQuestionFragment newInstance(int questionNumber) {
         QuizQuestionFragment fragment = new QuizQuestionFragment();
@@ -121,6 +121,18 @@ public class QuizQuestionFragment extends Fragment {
         choiceOne.setText(answersList.get(0));
         choiceTwo.setText(answersList.get(1));
         choiceThree.setText(answersList.get(2));
+
+        choicesRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton checkedRadioButton = radioGroup.findViewById(i);
+                String selectedAnswer = checkedRadioButton.getText().toString();
+
+                if (selectedAnswer.equals(currentQuestion.getStateCapital())) {
+                    QuizPagerAdapter.quizScore++;
+                }
+            }
+        });
     }
 
     public static int getNumberOfQuestions() {
