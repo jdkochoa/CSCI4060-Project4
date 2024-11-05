@@ -1,5 +1,7 @@
 package edu.uga.cs.statecapitalsquiz;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
@@ -10,6 +12,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
  */
 public class QuizPagerAdapter extends FragmentStateAdapter {
 
+    public static int quizScore = 0;
 
     /**
      * Constructor which assists in managing fragments within the quiz in a ViewPager2 setup,
@@ -31,6 +34,10 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      */
     @Override
     public Fragment createFragment( int questionNum ) {
+        if (questionNum == 6) {
+            return QuizResults.newInstance( quizScore );
+        }
+
         return QuizQuestionFragment.newInstance( questionNum );
     }
 
