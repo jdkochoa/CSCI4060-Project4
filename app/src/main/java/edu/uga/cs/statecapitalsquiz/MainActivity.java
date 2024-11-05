@@ -17,6 +17,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class replaces the empty fragment container view which the app initially creates with the
+ * splash screen to be shown when the app is first opened.
+ */
 public class MainActivity extends AppCompatActivity {
 
     DBManager databaseManager;
@@ -24,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
+    /**
+     * Inflates the main activity and replaces the empty fragment container view with the splash
+     * screen.
+     *
+     * @param savedInstanceState The saved state of the app.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "MainActivity.onCreate");

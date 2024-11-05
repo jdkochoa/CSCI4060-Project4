@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+/**
+ * This class represents a splash screen to be displayed at the start of the app. Users will have
+ * the option to click three buttons including "Start", "Review Past Quizzes", or "Help".
+ */
 public class SplashFragment extends Fragment {
 
     private Button startB;
@@ -18,12 +22,33 @@ public class SplashFragment extends Fragment {
     private TextView titleTv;
     private TextView directionsTv;
 
-@Override
+    /**
+     * Inflates the splash_layout.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return The inflated splash_layout.
+     */
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+// Inflate the layout for this fragment
         return inflater.inflate(R.layout.splash_layout, container, false);
     }
 
+    /**
+     * Initializes the TextViews and Buttons, and assigns event handlers to each of the
+     * three Buttons, respectively.
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated( View view, Bundle savedInstanceState ) {
         super.onViewCreated(view,savedInstanceState);
@@ -43,6 +68,9 @@ public class SplashFragment extends Fragment {
 
     }
 
+    /**
+     * Event handler which begins a quiz when a user clicks the "Start" button.
+     */
     private class StartButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -52,6 +80,10 @@ public class SplashFragment extends Fragment {
         }
     }
 
+    /**
+     * Event handler which opens the list of past quizzes when a user clicks the "Review Past
+     * Quizzes" button.
+     */
     private class ReviewButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -61,6 +93,10 @@ public class SplashFragment extends Fragment {
         }
     }
 
+    /**
+     * Event handler which presents more information to the user when the user clicks the "Help"
+     * button.
+     */
     private class HelpButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
