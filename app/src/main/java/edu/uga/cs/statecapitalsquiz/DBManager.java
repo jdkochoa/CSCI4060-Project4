@@ -32,8 +32,17 @@ public class DBManager {
         }
     }
 
+    public long insertQuizScore(String date, int quizScore) {
+
+        ContentValues values = new ContentValues();
+        values.put(QuizContract.QuizEntry.COLUMN_QUIZ_DATE, date);
+        values.put(QuizContract.QuizEntry.COLUMN_QUIZ_RESULT, quizScore);
+
+        // insert() returns the primary key of the inserted tuple
+        return db.insert(QuizContract.QuizEntry.TABLE_NAME, null, values);
+    }
     /*
-    Insert a question into the database
+    Insert a question into the database.
      */
     public void insertQuizData(QuizQuestion question) {
 

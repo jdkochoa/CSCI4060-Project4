@@ -32,12 +32,22 @@ public class QuizQuestionFragment extends Fragment {
     private int questionNumber;
     // This list will contain all 6 quiz questions
     private ArrayList<QuizQuestion> quizQuestions;
-    private static final int numberOfQuestions = 7;
+    // This array represents the pages in the quiz
+    private static final String[] pages = {
+            "questionOne",
+            "questionTwo",
+            "questionThree",
+            "questionFour",
+            "questionFive",
+            "questionSix",
+            "resultsPage"
+    };
 
     public static QuizQuestionFragment newInstance(int questionNumber) {
         QuizQuestionFragment fragment = new QuizQuestionFragment();
         Bundle args = new Bundle();
         args.putInt("questionNumber", questionNumber);
+        args.putInt("recreate", 0);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,6 +63,11 @@ public class QuizQuestionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             questionNumber = getArguments().getInt("questionNumber");
+        }
+        if (savedInstanceState != null) {
+            int recreate = savedInstanceState.getInt("recreate");
+            if (recreate == 1)
+                quizQuestions = (ArrayList<QuizQuestion>) savedInstanceState.getSerializable("recreateQuiz");
         }
     }
 
@@ -86,27 +101,33 @@ public class QuizQuestionFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Integer[] primaryKeys = new Integer[6];
-        Set<Integer> set = new HashSet<>();
-
-        // Generate random primary keys
-        Random random = new Random();
-        for (int i = 0; i < primaryKeys.length; i++) {
-            int randomPrimaryKey = random.nextInt(50) + 1;
-            while (set.contains(randomPrimaryKey)) {
-                randomPrimaryKey = random.nextInt(50) + 1;
-            }
-            set.add(randomPrimaryKey);
-            primaryKeys[i] = randomPrimaryKey;
-        }
-
-        new QueryDatabase().execute(primaryKeys);
-
         quizQuestion = view.findViewById(R.id.questionTv);
         choicesRG = view.findViewById(R.id.answersRg);
         choiceOne = view.findViewById(R.id.choice1);
         choiceTwo = view.findViewById(R.id.choice2);
         choiceThree = view.findViewById(R.id.choice3);
+    
+        if (quizQuestions == null) {
+            Integer[] primaryKeys = new Integer[6];
+            Set<Integer> set = new HashSet<>();
+
+            // Generate random primary keys
+            Random random = new Random();
+            for (int i = 0; i < primaryKeys.length; i++) {
+                int randomPrimaryKey = random.nextInt(50) + 1;
+                while (set.contains(randomPrimaryKey)) {
+                    randomPrimaryKey = random.nextInt(50) + 1;
+                }
+                set.add(randomPrimaryKey);
+                primaryKeys[i] = randomPrimaryKey;
+            }
+
+            // Query the database for the quiz questions
+            new QueryDatabase().execute(primaryKeys);
+        } else {
+            updateUI();
+        }
+
     }
 
     public void updateUI() {
@@ -145,8 +166,29 @@ public class QuizQuestionFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        QuizPagerAdapter.currentQuizQuestion = questionNumber;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        questionNumber = QuizPagerAdapter.currentQuizQuestion;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        QuizPagerAdapter.quizQuestions = quizQuestions;
+        outState.putInt("questionNumber", questionNumber);
+        outState.putInt("recreate", 1);
+        outState.putSerializable("recreateQuiz", quizQuestions);
+    }
+
     public static int getNumberOfQuestions() {
-        return numberOfQuestions;
+        return pages.length;
     }
 
     private class QueryDatabase extends AsyncTask<Integer, ArrayList<QuizQuestion>> {

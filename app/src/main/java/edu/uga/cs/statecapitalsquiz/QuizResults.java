@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link QuizResults#newInstance} factory method to
@@ -20,6 +23,8 @@ public class QuizResults extends Fragment {
 
     TextView textView;
     int quizScore;
+    Date date;
+
 
     public QuizResults() {
         // Required empty public constructor
@@ -31,11 +36,10 @@ public class QuizResults extends Fragment {
      *
      * @return A new instance of fragment QuizResults.
      */
-    // TODO: Rename and change types and number of parameters
-    public static QuizResults newInstance( int num ) {
+    public static QuizResults newInstance(int quizScore) {
         QuizResults fragment = new QuizResults();
         Bundle args = new Bundle();
-        args.putInt( "quizScore", num );
+        args.putInt( "quizScore", quizScore );
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,8 +49,11 @@ public class QuizResults extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             quizScore = getArguments().getInt("quizScore");
-            // mParam1 = getArguments().getString(ARG_PARAM1);
+            date = new Date();
         }
+
+        String[] quizData = {date.toString(), Integer.toString(quizScore)};
+        new InsertQuizScore().execute(quizData);
     }
 
     @Override
@@ -63,5 +70,22 @@ public class QuizResults extends Fragment {
         textView = view.findViewById(R.id.tv);
         textView.setText( "You scored " + QuizPagerAdapter.quizScore + " out of 6 questions correct.");
 
+    }
+
+    private class InsertQuizScore extends AsyncTask<String, Long> {
+
+        DBManager databaseManager;
+
+        @Override
+        protected Long doInBackground(String... quizResults) {
+            databaseManager = new DBManager(getActivity());
+            databaseManager.open();
+            return databaseManager.insertQuizScore(quizResults[0], Integer.parseInt(quizResults[1]));
+        }
+
+        @Override
+        protected void onPostExecute(Long primaryKey) {
+
+        }
     }
 }

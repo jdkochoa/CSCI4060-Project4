@@ -29,7 +29,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
             "create table " + QuizContract.QuizEntry.TABLE_NAME + "("
                     + QuizContract.QuizEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + QuizContract.QuizEntry.COLUMN_QUIZ_DATE + " TEXT,"
-                    + QuizContract.QuizEntry.COLUMN_QUIZ_RESULT + " TEXT"
+                    + QuizContract.QuizEntry.COLUMN_QUIZ_RESULT + "INTEGER"
                     + ")"
             ;
 

@@ -1,6 +1,8 @@
 package edu.uga.cs.statecapitalsquiz;
 
-public class QuizQuestion {
+import java.io.Serializable;
+
+public class QuizQuestion implements Serializable {
 
     public boolean isAnsweredCorrectly = false;
 

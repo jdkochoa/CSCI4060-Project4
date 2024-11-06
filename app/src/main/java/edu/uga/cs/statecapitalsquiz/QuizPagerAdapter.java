@@ -7,12 +7,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import java.util.ArrayList;
+
 /**
  * This class represents an adapter class to assist in the ViewPager2 implementation.
  */
 public class QuizPagerAdapter extends FragmentStateAdapter {
 
-    public static int quizScore = 0;
+    static int currentQuizQuestion;
+    static ArrayList<QuizQuestion> quizQuestions;
+    static int quizScore;
 
     /**
      * Constructor which assists in managing fragments within the quiz in a ViewPager2 setup,
@@ -24,6 +28,9 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      */
     public QuizPagerAdapter( FragmentManager fragmentManager, Lifecycle lifeCycle ) {
         super( fragmentManager, lifeCycle );
+        currentQuizQuestion = 0;
+        quizQuestions = null;
+        quizScore = 0;
     }
 
     /**
@@ -41,9 +48,8 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
         }
 
         if (questionNum == 6) {
-            return QuizResults.newInstance( quizScore );
+            return QuizResults.newInstance(quizScore);
         }
-
         return QuizQuestionFragment.newInstance( questionNum );
     }
 
