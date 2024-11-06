@@ -2,6 +2,8 @@ package edu.uga.cs.statecapitalsquiz;
 
 public class QuizQuestion {
 
+    public boolean isAnsweredCorrectly = false;
+
     private int id;
     private String state;
     private String stateCapital;

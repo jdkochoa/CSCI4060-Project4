@@ -34,6 +34,12 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      */
     @Override
     public Fragment createFragment( int questionNum ) {
+        Log.d("QuizPagerAdapter", "Score after question " + questionNum + ": " + quizScore);
+
+        if (questionNum == 0) {
+            quizScore = 0;
+        }
+
         if (questionNum == 6) {
             return QuizResults.newInstance( quizScore );
         }
