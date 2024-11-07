@@ -3,6 +3,7 @@ package edu.uga.cs.statecapitalsquiz;
 import android.os.Handler;
 import android.os.Looper;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -76,5 +77,6 @@ public abstract class AsyncTask<Param,Result> {
 
     // These abstract methods are just like in the AsyncTask class
     protected abstract Result doInBackground( Param... arguments );
-    protected abstract void onPostExecute( Result result );
+
+    protected abstract void onPostExecute(Result result );
 }

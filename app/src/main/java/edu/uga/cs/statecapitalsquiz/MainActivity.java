@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*
          If the database does not exist, insert the data from the csv file into the database.
-         Else, open the database.
+         Else, open the database. The database will remain open until the MainActivity is destroyed.
         */
         File dbFile = getDatabasePath("Quiz.db");
 
@@ -75,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Error", e.toString() );
             }
         }
+        else{
+            databaseManager.open();
+        }
 
+        // Display the SplashFragment, which is the main menu of the application.
         if (savedInstanceState == null) {
             SplashFragment splashFragment = new SplashFragment();
             getSupportFragmentManager().beginTransaction()
@@ -87,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseManager.closeDB();
     }
 
 

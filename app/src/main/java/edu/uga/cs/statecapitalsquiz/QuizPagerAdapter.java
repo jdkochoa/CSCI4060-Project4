@@ -29,7 +29,7 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      * @param lifeCycle The Lifecycle associated with the adapter to handle the lifecycle
      * of each fragment within the ViewPager2.
      */
-    public QuizPagerAdapter( FragmentManager fragmentManager, Lifecycle lifeCycle ) {
+    public QuizPagerAdapter( FragmentManager fragmentManager, Lifecycle lifeCycle) {
         super( fragmentManager, lifeCycle );
         Log.d(TAG, "QuizPagerAdapter.constructor");
 

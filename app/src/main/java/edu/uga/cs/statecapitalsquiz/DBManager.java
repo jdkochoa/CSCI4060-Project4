@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBManager {
 
     private SQLiteDatabase db;
@@ -30,6 +33,34 @@ public class DBManager {
         if (db != null) {
             db.close();
         }
+    }
+
+    public ArrayList<String[]> getAllQuizResults() {
+
+        String sortOrder = QuizContract.QuizEntry._ID + " DESC";
+
+        Cursor cursor = db.query(
+                QuizContract.QuizEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+
+        ArrayList<String[]> quizResults = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String[] quizResult = new String[2];
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(QuizContract.QuizEntry.COLUMN_QUIZ_DATE));
+            String result = cursor.getString(cursor.getColumnIndexOrThrow(QuizContract.QuizEntry.COLUMN_QUIZ_RESULT));
+            quizResult[0] = date;
+            quizResult[1] = result;
+            quizResults.add(quizResult);
+        }
+        cursor.close();
+
+        return quizResults;
     }
 
     public long insertQuizScore(String date, int quizScore) {

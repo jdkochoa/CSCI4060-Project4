@@ -34,9 +34,7 @@ public class QuizFragment extends Fragment {
      */
 
     // Required empty public constructor
-    public QuizFragment() {
-
-    }
+    public QuizFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
