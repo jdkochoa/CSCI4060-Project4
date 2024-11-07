@@ -47,7 +47,7 @@ public class QuizQuestionFragment extends Fragment {
     };
 
     // Required empty public constructor
-    public  QuizQuestionFragment() {}
+    public QuizQuestionFragment() {}
 
     public static QuizQuestionFragment newInstance(int questionNumber) {
         Log.d(TAG, "QuizQuestionFragment.newInstance");
@@ -239,7 +239,7 @@ public class QuizQuestionFragment extends Fragment {
             quizQuestions = queriedQuestions;
             QuizPagerAdapter.quizQuestions = quizQuestions;
             updateUI();
-            databaseManager.closeDB();
+            //databaseManager.closeDB();
         }
     }
 }
