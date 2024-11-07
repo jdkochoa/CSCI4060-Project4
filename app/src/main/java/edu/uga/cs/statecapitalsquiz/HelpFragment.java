@@ -26,6 +26,12 @@ public class HelpFragment extends Fragment {
      *
      * @return
      */
+
+    // Required empty public constructor
+    public HelpFragment() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 // Inflate the layout for this fragment
