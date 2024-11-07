@@ -23,6 +23,11 @@ public class SplashFragment extends Fragment {
     private TextView titleTv;
     private TextView directionsTv;
 
+    // Required empty public constructor
+    public SplashFragment() {
+
+    }
+
     /**
      * Inflates the splash_layout.
      *

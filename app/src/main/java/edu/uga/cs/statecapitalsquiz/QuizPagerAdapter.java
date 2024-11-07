@@ -2,6 +2,7 @@ package edu.uga.cs.statecapitalsquiz;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
  * This class represents an adapter class to assist in the ViewPager2 implementation.
  */
 public class QuizPagerAdapter extends FragmentStateAdapter {
+
+    public static final String TAG = "QuizPagerAdapter";
 
     static int currentQuizQuestion;
     static ArrayList<QuizQuestion> quizQuestions;
@@ -28,6 +31,8 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      */
     public QuizPagerAdapter( FragmentManager fragmentManager, Lifecycle lifeCycle ) {
         super( fragmentManager, lifeCycle );
+        Log.d(TAG, "QuizPagerAdapter.constructor");
+
         currentQuizQuestion = 0;
         quizQuestions = null;
         quizScore = 0;
@@ -39,15 +44,16 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      * @param questionNum The current question number.
      * @return
      */
+    @NonNull
     @Override
     public Fragment createFragment( int questionNum ) {
-        Log.d("QuizPagerAdapter", "Score after question " + questionNum + ": " + quizScore);
+        Log.d(TAG, "QuizPagerAdapter.createFragment");
 
-        if (questionNum == 0) {
-            quizScore = 0;
-        }
+        int updateNum = questionNum + 1;
+        Log.d("QuizPagerAdapter", "Score before question " + updateNum + ": " + quizScore);
 
         if (questionNum == 6) {
+            Log.d(TAG, "QuizPagerAdapter.quizScore: " + quizScore);
             return QuizResults.newInstance(quizScore);
         }
         return QuizQuestionFragment.newInstance( questionNum );
@@ -60,6 +66,7 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
      */
     @Override
     public int getItemCount() {
+        //Log.d(TAG, "QuizPagerAdapter.getItemCount");
         return QuizQuestionFragment.getNumberOfQuestions();
     }
 }

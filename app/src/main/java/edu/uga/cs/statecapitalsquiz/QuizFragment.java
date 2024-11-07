@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,9 +18,6 @@ import androidx.viewpager2.widget.ViewPager2;
  * through each question.
  */
 public class QuizFragment extends Fragment {
-
-    private ViewPager2 viewPager;
-    private QuizPagerAdapter quizPagerAdapter;
 
     /**
      * Inflates the ViewPager2 container where quiz question fragments are held.
@@ -34,6 +32,12 @@ public class QuizFragment extends Fragment {
      *
      * @return
      */
+
+    // Required empty public constructor
+    public QuizFragment() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         return inflater.inflate( R.layout.quiz_pager, container, false );
@@ -48,11 +52,12 @@ public class QuizFragment extends Fragment {
      * from a previous saved state as given here.
      */
     @Override
-    public void onViewCreated( View view, Bundle savedInstanceState ) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
         super.onViewCreated( view, savedInstanceState );
 
-        viewPager = view.findViewById( R.id.quizPager);
-        quizPagerAdapter = new QuizPagerAdapter( getChildFragmentManager(), getLifecycle() );
-        viewPager.setAdapter( quizPagerAdapter );
+        ViewPager2 viewPager = view.findViewById(R.id.quizPager);
+        QuizPagerAdapter quizPagerAdapter = new QuizPagerAdapter(getChildFragmentManager(), getLifecycle());
+        viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        viewPager.setAdapter(quizPagerAdapter);
     }
 }

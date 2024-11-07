@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import java.util.Date;
  */
 public class QuizResults extends Fragment {
 
+    public static final String TAG = "QuizResults";
     TextView textView;
     int quizScore;
     Date date;
@@ -37,6 +39,7 @@ public class QuizResults extends Fragment {
      * @return A new instance of fragment QuizResults.
      */
     public static QuizResults newInstance(int quizScore) {
+        Log.d(TAG, "QuizResults.newInstance quizScore: " + quizScore);
         QuizResults fragment = new QuizResults();
         Bundle args = new Bundle();
         args.putInt( "quizScore", quizScore );
@@ -50,6 +53,7 @@ public class QuizResults extends Fragment {
         if (getArguments() != null) {
             quizScore = getArguments().getInt("quizScore");
             date = new Date();
+            Log.d(TAG, "QuizResults.onCreate quizScore: " + quizScore);
         }
 
         String[] quizData = {date.toString(), Integer.toString(quizScore)};
