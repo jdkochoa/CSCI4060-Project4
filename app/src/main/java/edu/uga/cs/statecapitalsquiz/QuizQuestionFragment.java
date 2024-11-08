@@ -74,6 +74,9 @@ public class QuizQuestionFragment extends Fragment {
             questionNumber = getArguments().getInt("questionNumber");
         }
         if (savedInstanceState != null) {
+            currentScore = savedInstanceState.getInt("currentScore"); // Retrieve the saved score
+            Log.d(TAG, "CURRENT SCORE: " + currentScore);
+
             quizQuestions = (ArrayList<QuizQuestion>) savedInstanceState.getSerializable("recreateQuiz");
         }
         if (quizQuestions == null && QuizPagerAdapter.quizQuestions != null) {
@@ -117,6 +120,11 @@ public class QuizQuestionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "QuizQuestionFragment.onViewCreated");
+
+        if (savedInstanceState != null) {
+            // Only reset quizScore if we're restoring from a previous state
+            QuizPagerAdapter.quizScore = savedInstanceState.getInt("currentScore", -100);
+        }
 
         quizQuestion = view.findViewById(R.id.questionTv);
         choicesRG = view.findViewById(R.id.answersRg);
@@ -163,7 +171,7 @@ public class QuizQuestionFragment extends Fragment {
         Collections.shuffle(answersList);
 
 
-        quizQuestion.setText(questionNumber + 1 + ". What is the city of " + currentQuestion.getState() + "?");
+        quizQuestion.setText(questionNumber + 1 + ". What is the capital of " + currentQuestion.getState() + "?");
         choiceOne.setText(answersList.get(0));
         choiceTwo.setText(answersList.get(1));
         choiceThree.setText(answersList.get(2));
@@ -210,6 +218,9 @@ public class QuizQuestionFragment extends Fragment {
 
         QuizPagerAdapter.quizQuestions = quizQuestions;
         outState.putInt("questionNumber", questionNumber);
+        currentScore = QuizPagerAdapter.quizScore;
+        outState.putInt("currentScore", currentScore);
+
         outState.putSerializable("recreateQuiz", quizQuestions);
     }
 
