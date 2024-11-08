@@ -50,7 +50,7 @@ public class QuizPagerAdapter extends FragmentStateAdapter {
         Log.d(TAG, "QuizPagerAdapter.createFragment");
 
         int updateNum = questionNum + 1;
-        Log.d("QuizPagerAdapter", "Score before question " + updateNum + ": " + quizScore);
+        Log.d("QuizPagerAdapter", "Score before question " + updateNum + ": " + quizScore + " " + QuizPagerAdapter.quizScore);
 
         if (questionNum == 6) {
             Log.d(TAG, "QuizPagerAdapter.quizScore: " + quizScore);
