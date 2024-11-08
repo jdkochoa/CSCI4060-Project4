@@ -56,7 +56,7 @@ public class QuizResults extends Fragment {
             Log.d(TAG, "QuizResults.onCreate quizScore: " + quizScore);
         }
 
-        String[] quizData = {date.toString(), Integer.toString(quizScore)};
+        String[] quizData = {date.toString(), Integer.toString(QuizPagerAdapter.quizScore)};
         new InsertQuizScore().execute(quizData);
     }
 
