@@ -35,6 +35,7 @@ public class QuizQuestionFragment extends Fragment {
     private int questionNumber;
     // This list will contain all 6 quiz questions
     private ArrayList<QuizQuestion> quizQuestions;
+    private int changedSate = 0;
     // This array represents the pages in the quiz
     private static final String[] pages = {
             "questionOne",
@@ -75,6 +76,7 @@ public class QuizQuestionFragment extends Fragment {
         }
         if (savedInstanceState != null) {
             quizQuestions = (ArrayList<QuizQuestion>) savedInstanceState.getSerializable("recreateQuiz");
+            changedSate = 1;
         }
         if (quizQuestions == null && QuizPagerAdapter.quizQuestions != null) {
             quizQuestions = QuizPagerAdapter.quizQuestions;
@@ -160,10 +162,11 @@ public class QuizQuestionFragment extends Fragment {
         answersList.add(currentQuestion.getSecondCity());
         answersList.add(currentQuestion.getThirdCity());
 
-        Collections.shuffle(answersList);
+        if (changedSate == 0)
+            Collections.shuffle(answersList);
 
 
-        quizQuestion.setText(questionNumber + 1 + ". What is the city of " + currentQuestion.getState() + "?");
+        quizQuestion.setText(questionNumber + 1 + ". What is the capital of " + currentQuestion.getState() + "?");
         choiceOne.setText(answersList.get(0));
         choiceTwo.setText(answersList.get(1));
         choiceThree.setText(answersList.get(2));
@@ -211,6 +214,7 @@ public class QuizQuestionFragment extends Fragment {
         QuizPagerAdapter.quizQuestions = quizQuestions;
         outState.putInt("questionNumber", questionNumber);
         outState.putSerializable("recreateQuiz", quizQuestions);
+        outState.putInt("quizScore", QuizPagerAdapter.quizScore);
     }
 
     public static int getNumberOfQuestions() {
